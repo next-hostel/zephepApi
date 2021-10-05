@@ -26,6 +26,9 @@ app.use(cookieParser());
 if (process.env.NODE_ENV === 'development') {
     app.use(cors({ origin: 'http://localhost:3000' }));
 }
+else if(process.env.NODE_ENV === 'production') {
+    app.use(cors({ origin: 'https://hostelstartup.herokuapp.com' }));
+}
 
 // Routes Middlewares
 app.use(authRoutes);
