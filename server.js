@@ -23,12 +23,13 @@ app.use(bodyParser.json());
 app.use(cookieParser());
 
 // cors
-if (process.env.NODE_ENV === 'development') {
-    app.use(cors({ origin: 'http://localhost:3000' }));
-}
-else if(process.env.NODE_ENV === 'production') {
-    app.use(cors({ origin: 'https://hostelstartup.herokuapp.com' }));
-}
+// if (process.env.NODE_ENV === 'development') {
+//     app.use(cors({ origin: 'http://localhost:3000' }));
+// }
+// else if(process.env.NODE_ENV === 'production') {
+//     app.use(cors({ origin: 'https://hostelstartup.herokuapp.com' }));
+// }
+app.use(cors());
 
 // Routes Middlewares
 app.use(authRoutes);
