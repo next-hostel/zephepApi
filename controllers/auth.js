@@ -349,7 +349,7 @@ exports.resetPassword = (req, res) => {
 
 const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
 exports.googleLogin = (req, res) => {
-    const { idToken } = req.body;
+    const idToken = req.body.tokenId;
 
     client.verifyIdToken({ idToken, audience: process.env.GOOGLE_CLIENT_ID }).then(response => {
         // console.log('GOOGLE LOGIN RESPONSE',response)

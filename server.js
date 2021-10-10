@@ -29,12 +29,10 @@ app.use(cookieParser());
 // else if(process.env.NODE_ENV === 'production') {
 //     app.use(cors({ origin: 'https://hostelstartup.herokuapp.com' }));
 // }
-const corsOptions ={
-    origin:'*', 
-    credentials:true,          
-    optionSuccessStatus:200,
- }
- app.use(cors(corsOptions))
+
+//  app.use(cors({ origin: "*" }));
+app.use(cors())
+
 
 // Routes Middlewares
 app.use(authRoutes);
