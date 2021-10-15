@@ -20,6 +20,7 @@ const {
     resetPasswordValidator  } = require('../validators/auth');
 
 router.post('/pre-signup', userSignupValidator, runValidation, preSignup);
+
 router.post('/signup', signup);
 router.post('/signin', userSigninValidator, runValidation, signin);
 router.get('/signout', signout);

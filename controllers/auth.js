@@ -9,7 +9,7 @@ const sgMail = require('@sendgrid/mail'); // SENDGRID_API_KEY
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
 exports.preSignup = (req, res) => {
-    const { name, email, password } = req.body;
+    const { name, email, password, role } = req.body;
     User.findOne({ email: email.toLowerCase() }, (err, user) => {
         if (user) {
             return res.status(400).json({
@@ -38,6 +38,9 @@ exports.preSignup = (req, res) => {
         });
     });
 };
+
+
+
 
 
 // exports.signup = (req, res) => {
@@ -80,7 +83,7 @@ exports.signup = (req, res) => {
                 });
             }
 
-            const { name, email, password } = jwt.decode(token);
+            const { name, email, password, role } = jwt.decode(token);
 
             
 

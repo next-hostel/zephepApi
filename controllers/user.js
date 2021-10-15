@@ -16,9 +16,57 @@ exports.read = (req, res) => {
     });
 };
 
+// exports.read = (req, res) => {
+//     req.profile.hashed_password = undefined;
+//     return res.json(req.profile);
+// };
+
+// exports.update = (req, res) => {
+//     // console.log('UPDATE USER - req.user', req.user, 'UPDATE DATA', req.body);
+//     const { name, phone } = req.body;
+//     console.log("name", name)
+//     console.log("phone", phone)
+
+
+//     User.find({ _id: req.user._id }, (err, user) => {
+//         if (err || !user) {
+//             return res.status(400).json({
+//                 error: 'User not found'
+//             });
+//         }
+//         user.phone = phone;
+
+
+
+//         if (!name) {
+//             return res.status(400).json({
+//                 error: 'Name is required'
+//             });
+//         } else {
+//             user.name = name;
+//         }
+
+        
+//         user.save((err, updatedUser) => {
+//             if (err) {
+//                 console.log('USER UPDATE ERROR', err);
+//                 return res.status(400).json({
+//                     error: 'User update failed'
+//                 });
+//             }
+//             // updatedUser.hashed_password = undefined;
+//             // updatedUser.salt = undefined;
+//             res.json(updatedUser);
+//         });
+//     });
+// };
 exports.update = (req, res) => {
     // console.log('UPDATE USER - req.user', req.user, 'UPDATE DATA', req.body);
-    const { name,  mobile, address } = req.body;
+    const { name, phone } = req.body;
+    console.log("name", name)
+    console.log("phone", phone)
+
+
 
     User.findOne({ _id: req.user._id }, (err, user) => {
         if (err || !user) {
@@ -26,9 +74,7 @@ exports.update = (req, res) => {
                 error: 'User not found'
             });
         }
-        user.mobile = mobile;
-        user.address = address;
-        
+         user.phone = phone;
         if (!name) {
             return res.status(400).json({
                 error: 'Name is required'
@@ -67,36 +113,35 @@ exports.update = (req, res) => {
     });
 };
 
-// exports.update = async (req, res) => {
-    
-// } 
 
 exports.updatePassword = (req, res) => {
     const { password, cPassword } = req.body;
-    User.findOne({ _id: req.user._id }, (err, user) => {
-        if (err || !user) {
+    console.log("password", password)
+    console.log("cPassword", cPassword)
+    User.findOne({ _id: req.user._id }, (err, pass) => {
+        if (err || !pass) {
             return res.status(400).json({
-                error: 'User not found'
+                err: 'User not found'
             });
         }
-       
 
-        if (password == cPassword ) {
+
+        if (password == cPassword) {
             if (password.length < 6) {
                 return res.status(400).json({
                     error: 'Password should be min 6 characters long'
                 });
             } else {
-                user.password = password;
+                pass.password = password;
             }
         }
-        else{
+        else {
             return res.status(400).json({
                 error: 'Password not matched'
             });
         }
 
-        user.save((err, updatedPassword) => {
+        pass.save((err, updatedPassword) => {
             if (err) {
                 console.log('Password  UPDATE ERROR', err);
                 return res.status(400).json({
@@ -109,5 +154,6 @@ exports.updatePassword = (req, res) => {
         });
     });
 }
+
 
 
