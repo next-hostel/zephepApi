@@ -10,13 +10,14 @@ sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
 exports.preSignup = (req, res) => {
     const { name, email, password, role } = req.body;
+    console.log(role)
     User.findOne({ email: email.toLowerCase() }, (err, user) => {
         if (user) {
             return res.status(400).json({
                 error: 'Email is taken'
             });
         }
-        const token = jwt.sign({ name, email, password }, process.env.JWT_ACCOUNT_ACTIVATION, { expiresIn: '10m' });
+        const token = jwt.sign({ name, email, password, role }, process.env.JWT_ACCOUNT_ACTIVATION, { expiresIn: '10m' });
 
         const emailData = {
             from: process.env.EMAIL_FROM,
@@ -87,7 +88,8 @@ exports.signup = (req, res) => {
 
             
 
-            const user = new User({ name, email, password });
+            const user = new User({ name, email, password, role });
+            console.log(role)
             user.save((err, user) => {
                 if (err) {
                     return res.status(401).json({
